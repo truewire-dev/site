@@ -24,6 +24,7 @@
   },
   "env": {
     "dev": {
+      "name": "truewire-site-dev",
       "assets": {
         "binding": "ASSETS",
         "directory": ".svelte-kit/cloudflare"

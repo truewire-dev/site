@@ -26,6 +26,9 @@ const config = {
         'default-src': ['none'],
         'script-src': ['self', appHtmlScriptHash()],
         'style-src': ['self'],
+        // SvelteKit's screen-reader route announcer uses this exact inline style.
+        // Permit only its hash; keep arbitrary inline styles blocked.
+        'style-src-attr': ['unsafe-hashes', 'sha256-S8qMpvofolR8Mpjy4kQvEm7m1q8clzU4dfDH0AmvZjo='],
         'img-src': ['self', 'data:'],
         'font-src': ['self'],
         'connect-src': ['self'],

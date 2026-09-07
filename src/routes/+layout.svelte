@@ -37,7 +37,7 @@
       {#each links as link (link.href)}
         <a href={link.href} aria-current={isActive(link.match) ? 'page' : undefined}>{link.label}</a>
       {/each}
-      <a href={GITHUB}>GitHub</a>
+      <a href={GITHUB}>GitHub ↗</a>
       <ModeSwitch />
     </nav>
   </div>
@@ -56,7 +56,7 @@
         <span class="brand-name">truewire</span>
       </a>
       <p class="colophon">Typed clients, true to the wire. Apache-2.0 toolchain, MIT runtime.</p>
-      <p class="colophon dim">Set in Newsreader and your system's monospace. Built with SvelteKit, served as static pages, no third-party requests.</p>
+      <p class="colophon dim">Built from real examples. Made to be yours.<br />Open source, from the first request to the last mile.</p>
     </div>
     <nav class="foot-links" aria-label="Footer">
       <div class="foot-col">
@@ -82,16 +82,16 @@
 </footer>
 
 <style>
-  .site-header { border-bottom: 1px solid var(--line-strong); background: var(--bg); }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 3.75rem; }
+  .site-header { border-bottom: 1px solid var(--line); background: var(--bg); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 5rem; }
   .brand { display: inline-flex; align-items: center; gap: 0.55rem; color: var(--fg); text-decoration: none; }
-  .brand-name { font-family: var(--display); font-weight: 500; font-size: 1.35rem; letter-spacing: -0.01em; line-height: 1; }
+  .brand-name { font-family: var(--display); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.065em; line-height: 1; }
   .nav { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; }
-  .nav a { color: var(--fg); text-decoration: none; font-size: 0.9rem; }
+  .nav a { color: var(--fg); text-decoration: none; font-size: 0.78rem; }
   .nav a:hover { color: var(--accent); text-decoration: underline; }
   .nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-underline-offset: 0.35em; }
 
-  .site-footer { border-top: 1px solid var(--line-strong); padding: 2.5rem 0 3rem; font-size: 0.9rem; }
+  .site-footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; font-size: 0.8rem; background: var(--bg-alt); }
   .foot {
     display: grid;
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);

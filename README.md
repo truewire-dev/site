@@ -3,8 +3,9 @@
 The website for [Truewire](https://github.com/truewire-dev/truewire): landing page, docs,
 roadmap. SvelteKit 2 + Svelte 5, fully prerendered, deployed to Cloudflare Workers.
 
-No framework CSS, no web fonts, no analytics, no requests to third parties. The design is
-the original hand-written stylesheet (`src/lib/styles/global.css`), light and dark by OS
+No framework CSS, no analytics, no requests to third parties. The design uses system sans,
+self-hosted Newsreader accents, and monospace, with an ivory / charcoal / signal-orange
+palette. The hand-written stylesheet (`src/lib/styles/global.css`) supports light and dark by OS
 preference with a persisted switch in the header. The switch is driven by the one inline
 script in `src/app.html`, not by Svelte, so the home page ships no JavaScript at all
 (`csr = false` in `src/routes/+page.ts`); the docs pages hydrate for their copy buttons.
@@ -74,7 +75,8 @@ must be real HTTP headers: `X-Frame-Options`, `Referrer-Policy`, `Permissions-Po
 generated per page by SvelteKit as a hashed `<meta>` tag (`svelte.config.js`), because the
 small hydration script SvelteKit inlines has a hash only the build knows. The one inline
 script of our own, the pre-paint colour-mode resolver in `src/app.html`, is hashed there
-too. The policy allows nothing inline and nothing cross-origin.
+too. The only allowed inline style is the exact hashed style used by SvelteKit's
+screen-reader route announcer. Arbitrary inline styles and cross-origin requests are blocked.
 
 ## Deploy
 
@@ -93,3 +95,27 @@ Repository secrets needed:
 The custom domains are declared in `wrangler.jsonc` (`routes` with `custom_domain: true`),
 so the zone for `truewire.dev` has to exist in the same Cloudflare account. Manual deploy:
 `yarn run deploy` (production) or `yarn run build && wrangler deploy --env dev`.
+
+### Redesign preview
+
+The `dev` branch contains the proposed “wire inspector” redesign. Its explicitly named
+Worker is `truewire-site-dev`, served at **https://dev.truewire.dev**. The `main` branch
+continues to deploy `truewire-site` at **https://truewire.dev**. Both use the same
+branch-specific workflow pattern as `tribulnation/landing`.
+
+Set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the GitHub `development`
+environment (or as repository secrets), then push `dev` or run the deploy workflow on
+that branch. The token needs Workers Scripts edit and the permissions needed to bind
+the custom domain in the `truewire.dev` zone. No application secrets are required.
+For a manual preview deployment, run `yarn run deploy:dev` with Cloudflare credentials
+available to Wrangler. To validate without publishing:
+
+```bash
+yarn run check
+yarn run build
+yarn wrangler deploy --env dev --dry-run
+```
+
+The homepage lives in `src/lib/components/home/Signal.svelte`. Its wire animation is
+CSS/SVG, respects reduced motion, and the FAQs use native HTML disclosure controls.
+The homepage remains prerendered without framework hydration.

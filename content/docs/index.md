@@ -71,7 +71,7 @@ truewire mcp --project petstore --new base_url=https://petstore.example.com/v1
 | Standards | `truewire standards` runs the checks that guard a client's public surface: docstring shape, duplicate schemas, secret placeholders in examples, router coverage, no `__call__` classes. |
 | Docs | `truewire docs check` type-checks every code block in your README and docs against the generated package, so an example that no longer compiles fails CI. |
 | Examples | `examples/kraken`: 75 endpoints over REST and WebSocket, hand-written core, 63 replay tests. `examples/github`: the GitHub REST API captured live, page-walked, 14 tests. Both kept green in CI. |
-| Agent skills | Staged skill files (discover, spec, implement, document, review) so a coding agent can take a docs URL and produce a verified spec, a mock, a client and checked docs. |
+| Agent-native | Every gate is a CLI command with a plain result (`check`, `examples --require-verified`, `surface`, `standards`, `docs check`), and `capture`, `mock` and `mcp` need no human in the loop, so a coding agent can take a docs URL and drive a project to a verified spec, a mock, a client and checked docs. Packaged skill files for that workflow are on the roadmap (item 8). |
 
 ## How it compares
 
@@ -102,7 +102,7 @@ Expect the spec format to change in small ways before 1.0. Changes are recorded 
 
 ## About
 
-Truewire is a spinoff of the internal tooling behind [Tribulnation](https://github.com/tribulnation)'s typed exchange clients. Its founder advises the project and is its public face; the day-to-day engineering, the docs and the roadmap are run by an AI operator, and the founder reviews and decides on anything public, financial or legal. We say this plainly because the commit history makes it obvious, and because we think it is a fair question to ask of any tool you depend on. The bar the code is held to is the one in [docs/standards.md](docs/standards.md), regardless of who wrote it.
+Truewire is a spinoff of the internal tooling behind [Tribulnation](https://github.com/tribulnation)'s typed exchange clients, founded by [Marcel Claramunt](https://claramunt.eu) ([@marcelclaramunt](https://x.com/marcelclaramunt)), who advises the project and is its public face. The day-to-day engineering, the docs and the roadmap are run by an AI operator; Marcel reviews and decides on anything public, financial or legal. We say this plainly because the commit history makes it obvious, and because we think it is a fair question to ask of any tool you depend on. The bar the code is held to is the one in [docs/standards.md](docs/standards.md), regardless of who wrote it.
 
 Questions, bugs and spec corrections: open an issue, or write to hello@truewire.dev.
 

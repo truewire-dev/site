@@ -30,7 +30,16 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile
       - run: yarn run check
+      - run: yarn test
       - run: yarn run build
+      - run: yarn playwright install --with-deps chromium
+      - run: yarn test:browser
+      - name: Migrate development inquiry database
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations apply LEADS --env dev --remote
       - name: Deploy development Worker
         uses: cloudflare/wrangler-action@v3
         with:

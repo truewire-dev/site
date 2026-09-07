@@ -1,8 +1,8 @@
 <script lang="ts">
   import Signal from '$lib/components/home/Signal.svelte'
 
-  const title = 'Truewire: typed clients, true to the wire'
-  const description = 'Truewire turns any API, documented or not, REST or WebSocket, into a typed, validated client you can trust. Record real wire examples, declare what a schema can\'t say, generate the client, the tests, the mock and the docs from the same source.'
+  const title = 'Truewire — Their API. Your rules.'
+  const description = 'Turn unpredictable APIs into typed Python clients backed by real responses. Open-source generation, runtime validation, HTTP and WebSocket mocks, and MCP tools. Build it yourself or let us scope your integration.'
 </script>
 
 <svelte:head>

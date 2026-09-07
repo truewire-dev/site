@@ -1,14 +1,14 @@
 # truewire.dev
 
 The website for [Truewire](https://github.com/truewire-dev/truewire): landing page, docs,
-roadmap. SvelteKit 2 + Svelte 5, fully prerendered, deployed to Cloudflare Workers.
+roadmap, and an inquiry funnel. SvelteKit 2 + Svelte 5 on Cloudflare Workers. Marketing
+and documentation are prerendered; `/start` uses server actions and D1.
 
-No framework CSS, no analytics, no requests to third parties. The design uses system sans,
-self-hosted Newsreader accents, and monospace, with an ivory / charcoal / signal-orange
-palette. The hand-written stylesheet (`src/lib/styles/global.css`) supports light and dark by OS
-preference with a persisted switch in the header. The switch is driven by the one inline
-script in `src/app.html`, not by Svelte, so the home page ships no JavaScript at all
-(`csr = false` in `src/routes/+page.ts`); the docs pages hydrate for their copy buttons.
+No framework CSS or third-party browser analytics. Self-hosted Manrope, lavender and ink,
+custom SVG wire graphics, and native radio/disclosure interactions. Light and dark themes
+follow the OS or the persisted footer switch. The homepage and inquiry form need no
+framework hydration; only the small theme script runs there. Docs hydrate for copy buttons.
+The inquiry flow uses short-lived functional cookies and aggregate D1 form-request counts.
 
 ## Layout
 
@@ -34,6 +34,9 @@ yarn run dev        # renders the docs first (predev), then vite dev
 yarn run check      # svelte-kit sync + svelte-check
 yarn run build      # renders the docs first (prebuild), then vite build
 yarn run preview    # serves the built site locally
+yarn db:local       # initialize the isolated development D1 simulation
+yarn test           # input validation and bounded-request tests
+yarn test:browser   # built Worker + isolated test D1 + Chromium (run build first)
 ```
 
 ## Docs
@@ -77,6 +80,8 @@ small hydration script SvelteKit inlines has a hash only the build knows. The on
 script of our own, the pre-paint colour-mode resolver in `src/app.html`, is hashed there
 too. The only allowed inline style is the exact hashed style used by SvelteKit's
 screen-reader route announcer. Arbitrary inline styles and cross-origin requests are blocked.
+Forms may submit only to this origin. Dynamic form responses are `no-store` and carry
+SvelteKit's CSP as a response header.
 
 ## Deploy
 
@@ -89,7 +94,7 @@ screen-reader route announcer. Arbitrary inline styles and cross-origin requests
 Repository secrets needed:
 
 - `CLOUDFLARE_API_TOKEN`: an API token with Workers Scripts edit permission (and Zone /
-  DNS edit for the custom domains, the first time)
+  DNS edit for the custom domains, the first time), plus D1 edit for migrations
 - `CLOUDFLARE_ACCOUNT_ID`
 
 The custom domains are declared in `wrangler.jsonc` (`routes` with `custom_domain: true`),
@@ -98,15 +103,17 @@ so the zone for `truewire.dev` has to exist in the same Cloudflare account. Manu
 
 ### Redesign preview
 
-The `dev` branch contains the proposed “wire inspector” redesign. Its explicitly named
+The `dev` branch contains the proposed “Their API. Your rules.” redesign. Its explicitly named
 Worker is `truewire-site-dev`, served at **https://dev.truewire.dev**. The `main` branch
 continues to deploy `truewire-site` at **https://truewire.dev**. Both use the same
-branch-specific workflow pattern as `tribulnation/landing`.
+branch-specific workflow pattern as `tribulnation/landing`. Development CI also runs the
+local-Worker Playwright suite before migrating or publishing.
 
 Set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the GitHub `development`
 environment (or as repository secrets), then push `dev` or run the deploy workflow on
 that branch. The token needs Workers Scripts edit and the permissions needed to bind
-the custom domain in the `truewire.dev` zone. No application secrets are required.
+the custom domain in the `truewire.dev` zone, plus D1 edit. No application secrets are required
+for inquiry capture. Development migrations run before the Worker deploys.
 For a manual preview deployment, run `yarn run deploy:dev` with Cloudflare credentials
 available to Wrangler. To validate without publishing:
 
@@ -116,6 +123,70 @@ yarn run build
 yarn wrangler deploy --env dev --dry-run
 ```
 
-The homepage lives in `src/lib/components/home/Signal.svelte`. Its wire animation is
-CSS/SVG, respects reduced motion, and the FAQs use native HTML disclosure controls.
-The homepage remains prerendered without framework hydration.
+The homepage lives in `src/lib/components/home/Signal.svelte` and `signal.css`. Its wire
+animation respects reduced motion, the conversion examples use native radio buttons,
+and FAQs use native HTML disclosure controls. The homepage remains prerendered.
+
+## Inquiry funnel and operations
+
+Three paths lead to `/start`: scoped integration work (`service`), Cloud early access
+(`cloud`), and questions (`help`). The selected CTA passes a bounded `source` label such
+as `pricing`, `nav`, or `cloud`. Cloud has a shorter form and separate contact permission.
+The service price is a starting price, not an automatic quote or checkout.
+
+The Worker stores submitted fields, consent version, timestamps, source, and follow-up
+status in `inquiries`. The confirmation page is reached only after D1 acknowledges the
+write. Native POST works without JavaScript. Validation failures preserve entered values.
+Short-lived HTTP-only cookies prevent duplicate retries and gate the confirmation page.
+Same-origin checks, a honeypot, bounded request bodies, prepared statements, and a
+Cloudflare rate-limit binding provide baseline abuse protection. The rate limiter is not
+a substitute for Turnstile or WAF rules if distributed spam becomes a problem.
+
+Development database: **truewire-site-leads-dev**. Local app data lives in `.wrangler/state`;
+browser tests use `.wrangler/test-state` and never write to remote D1.
+
+Operator commands (Cloudflare-authenticated CLI, never a public endpoint):
+
+```bash
+yarn leads list --remote          # latest 50 development inquiries, including personal data
+yarn leads stats --remote         # form requests, inquiries, and stage counts by source/intent
+yarn leads status <id> contacted --remote
+yarn leads status <id> qualified --remote
+yarn leads status <id> won --remote
+```
+
+Omit `--remote` for local data; add `--production` only after production provisioning.
+Available stages: `new`, `contacted`, `qualified`, `won`, `lost`, `closed`. Review new leads,
+reply through the agreed communication channel, and update the stage. Counts are form
+page requests, **not unique visitors**; reloads, failed POST rerenders, and bots can count.
+Use this report directionally, not as a precise user conversion rate. No ad pixels,
+cross-site tracking, visitor IDs, or raw IP addresses are stored by the application.
+
+Automatic email/Slack alerts are not configured. D1 is the durable inbox; choose a
+notification destination before relying on unattended sales follow-up. Never export or
+commit real inquiry data. The privacy notice describes actual processing but remains a
+draft pending legal/retention review before production launch.
+
+### Before promoting to production
+
+Production remains on `main`. Its new D1 binding is intentionally not provisioned from
+this development branch. Before merging, create **truewire-site-leads** with
+`yarn wrangler d1 create truewire-site-leads --env="" --binding LEADS --update-config`,
+commit that production database ID, add the production migration step to CI, and apply
+`yarn wrangler d1 migrations apply LEADS --env="" --remote` before deploying. Do not reuse
+the development database. Finalize notification delivery and privacy/retention policy.
+
+### Browser verification
+
+```bash
+yarn playwright install chromium
+yarn build
+yarn test:browser
+```
+
+The suite starts the built Worker on port 8788 with local D1. It checks seven viewport
+widths, clipped hero elements (not just document overflow), example controls, keyboard
+navigation, theme persistence, reduced motion, internal anchors, and docs. It exercises
+service and Cloud submissions, then queries local D1 to verify persistence. It also
+checks validation, same-origin enforcement, honeypot rejection, rate limits, oversized
+bodies, and retry deduplication. Screenshots are saved to `test-results/`.

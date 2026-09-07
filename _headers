@@ -1,6 +1,6 @@
 # Cloudflare Workers static-asset headers (developers.cloudflare.com/workers/static-assets/headers/).
 # Copied into .svelte-kit/cloudflare by adapter-cloudflare at build time. Every page is
-# prerendered, so these apply to the whole site. The Content-Security-Policy is not here:
+# prerendered, except inquiry pages (covered by hooks.server.ts). The CSP is not here:
 # SvelteKit emits it as a hashed <meta> tag per page (see svelte.config.js), since the
 # hydration script it inlines needs a hash only the build knows.
 
@@ -17,6 +17,9 @@
 
 /favicon.svg
   Cache-Control: public, max-age=604800
+
+https://dev.truewire.dev/*
+  X-Robots-Tag: noindex, nofollow
 
 # Without an explicit charset, some HTTP clients (Python's `requests`, notably) default
 # unlabeled text/* responses to ISO-8859-1 and garble every non-ASCII character.

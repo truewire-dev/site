@@ -13,6 +13,9 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+.dev.vars*
+/.wrangler-deploy.json
+/test-results/
 
 # Vite
 vite.config.js.timestamp-*

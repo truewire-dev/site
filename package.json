@@ -19,9 +19,14 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "deploy": "vite build && wrangler deploy --env=\"\"",
-    "deploy:dev": "yarn run build && wrangler deploy --env dev"
+    "deploy:dev": "yarn run build && wrangler d1 migrations apply LEADS --env dev --remote && wrangler deploy --env dev",
+    "leads": "node scripts/leads.mjs",
+    "test": "node --experimental-strip-types --test tests/inquiries.test.mjs",
+    "test:browser": "playwright test",
+    "db:local": "wrangler d1 migrations apply LEADS --env dev --local"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@sveltejs/adapter-cloudflare": "^7.2.8",
     "@sveltejs/kit": "^2.22.0",
     "@sveltejs/vite-plugin-svelte": "^6.0.0",

@@ -5,9 +5,9 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 // src/app.html carries one inline script: the pre-paint colour-mode resolver. SvelteKit's
 // CSP support hashes only the inline scripts it generates itself, so the hash of ours is
-// computed here from the same file and added to script-src. Every page is prerendered, so
-// the policy ships as a <meta http-equiv> tag (hash mode); the headers a meta tag cannot
-// carry (frame-ancestors and friends) live in _headers at the repo root instead.
+// computed here from the same file and added to script-src. Prerendered pages ship the
+// policy as a <meta http-equiv> tag; inquiry pages use a real CSP response header.
+// Additional security headers live in _headers and hooks.server.ts.
 function appHtmlScriptHash() {
   const html = readFileSync(new URL('./src/app.html', import.meta.url), 'utf8')
   const match = html.match(/<script>([\s\S]*?)<\/script>/)
@@ -19,7 +19,7 @@ function appHtmlScriptHash() {
 const config = {
   preprocess: vitePreprocess(),
   kit: {
-    adapter: adapterCloudflare(),
+    adapter: adapterCloudflare({ platformProxy: { environment: 'dev' } }),
     csp: {
       mode: 'hash',
       directives: {
@@ -34,7 +34,7 @@ const config = {
         'connect-src': ['self'],
         'manifest-src': ['self'],
         'base-uri': ['none'],
-        'form-action': ['none']
+        'form-action': ['self']
       }
     }
   }

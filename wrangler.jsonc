@@ -1,40 +1,78 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "truewire-site",
-  "compatibility_date": "2026-05-11",
-  "compatibility_flags": ["nodejs_als"],
-  "main": ".svelte-kit/cloudflare/_worker.js",
-  "assets": {
-    "binding": "ASSETS",
-    "directory": ".svelte-kit/cloudflare"
-  },
-  "routes": [
-    {
-      "pattern": "truewire.dev",
-      "custom_domain": true
-    }
-  ],
-  "workers_dev": true,
-  "preview_urls": true,
-  "observability": {
-    "logs": {
-      "enabled": false,
-      "invocation_logs": true
-    }
-  },
-  "env": {
-    "dev": {
-      "name": "truewire-site-dev",
-      "assets": {
-        "binding": "ASSETS",
-        "directory": ".svelte-kit/cloudflare"
-      },
-      "routes": [
-        {
-          "pattern": "dev.truewire.dev",
-          "custom_domain": true
-        }
-      ]
-    }
-  }
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "truewire-site",
+	"compatibility_date": "2026-05-11",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
+	"routes": [
+		{
+			"pattern": "truewire.dev",
+			"custom_domain": true
+		}
+	],
+	"workers_dev": true,
+	"preview_urls": true,
+	"d1_databases": [
+		{
+			"binding": "LEADS",
+			"database_name": "truewire-site-leads",
+			"migrations_dir": "migrations"
+		}
+	],
+	"ratelimits": [
+		{
+			"name": "INQUIRY_LIMITER",
+			"namespace_id": "1001",
+			"simple": {
+				"limit": 5,
+				"period": 60
+			}
+		}
+	],
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": false,
+			"head_sampling_rate": 1
+		}
+	},
+	"env": {
+		"dev": {
+			"name": "truewire-site-dev",
+			"d1_databases": [
+				{
+					"binding": "LEADS",
+					"database_name": "truewire-site-leads-dev",
+					"migrations_dir": "migrations",
+					"database_id": "5c927a35-1e3c-415e-843a-fe95322dc1ef"
+				}
+			],
+			"ratelimits": [
+				{
+					"name": "INQUIRY_LIMITER",
+					"namespace_id": "1002",
+					"simple": {
+						"limit": 5,
+						"period": 60
+					}
+				}
+			],
+			"assets": {
+				"binding": "ASSETS",
+				"directory": ".svelte-kit/cloudflare"
+			},
+			"routes": [
+				{
+					"pattern": "dev.truewire.dev",
+					"custom_domain": true
+				}
+			]
+		}
+	}
 }

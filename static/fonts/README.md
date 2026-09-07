@@ -7,3 +7,8 @@ the Latin subset of the variable font, instanced at optical size 60 with the wei
 axis kept between 400 and 600, so each file is about 25 KB. They are used for
 headings only; body text and the wire use the reader's system fonts, and nothing is
 fetched from a third party.
+# Manrope
+
+`manrope-variable.ttf` is the self-hosted variable Manrope family from
+https://github.com/google/fonts/tree/main/ofl/manrope, used for the redesign's headings.
+Its SIL Open Font License is included as `manrope-OFL.txt`.

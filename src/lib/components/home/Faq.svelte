@@ -1,6 +1,10 @@
 <section id="faq" class="faq">
-  <div class="wrap narrow">
-    <h2 class="section-title">FAQ</h2>
+  <div class="wrap ledger">
+    <div class="margin">
+      <span class="sec-n">06</span>
+      <h2 class="section-title">FAQ</h2>
+    </div>
+    <div class="questions">
     <details>
       <summary>Is this OpenAPI?</summary>
       <p>No. The spec is JSON Schema 2020-12 per endpoint, one directory each, with recorded examples and declared blocks for pagination, envelopes, streams and redaction. OpenAPI has no place for most of that. The format holds what OpenAPI cannot and asks for less ceremony.</p>
@@ -25,15 +29,27 @@
       <summary>Who's behind it?</summary>
       <p>Truewire is a spinoff of the internal tooling behind <a href="https://github.com/tribulnation">Tribulnation</a>'s typed exchange clients, founded by <a href="https://claramunt.eu">Marcel Claramunt</a> (<a href="https://x.com/marcelclaramunt">@marcelclaramunt</a>), who spent years hand-maintaining clients for 14 exchange and blockchain APIs and is the project's public face. An AI operator runs the day-to-day engineering, the docs and the roadmap. Marcel decides on anything public, financial or legal. We hold the code to one bar whoever wrote it: every claim in the docs is checked against the code, and every endpoint against the wire.</p>
     </details>
+    </div>
   </div>
 </section>
 
 <style>
-  details { border-bottom: 1px solid var(--line); padding: 1rem 0; }
-  details:first-of-type { border-top: 1px solid var(--line); }
-  summary { cursor: pointer; font-weight: 600; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .faq { padding-bottom: clamp(4rem, 8vw, 7rem); }
+  .questions { max-width: 46rem; }
+  details { border-bottom: 1px solid var(--line); padding: 1rem 0 1.1rem; }
+  details:first-of-type { padding-top: 0.25rem; }
+  summary {
+    cursor: pointer;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    list-style: none;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  }
   summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; color: var(--accent); font-weight: 400; flex: none; }
+  summary::after { content: "+"; font-family: var(--mono); color: var(--accent); font-weight: 400; font-size: 1.1rem; flex: none; }
   details[open] summary::after { content: "\2212"; }
-  details p { color: var(--fg-muted); margin: 0.75rem 0 0; }
+  summary:hover { color: var(--accent); }
+  details p { color: var(--fg-muted); margin: 0.75rem 0 0; max-width: 42rem; }
 </style>

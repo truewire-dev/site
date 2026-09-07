@@ -44,23 +44,23 @@
     display: inline-flex;
     padding: 2px;
     border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--bg-alt);
+    border-radius: 4px;
+    background: transparent;
   }
   button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.75rem;
+    height: 1.6rem;
     border: 0;
-    border-radius: 999px;
+    border-radius: 3px;
     background: transparent;
     color: var(--fg-muted);
     cursor: pointer;
     padding: 0;
   }
   button:hover { color: var(--fg); }
-  button[aria-checked="true"] { background: var(--bg); color: var(--accent); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12); }
-  svg { width: 0.95rem; height: 0.95rem; }
+  button[aria-checked="true"] { background: var(--bg-alt); color: var(--accent); }
+  svg { width: 0.9rem; height: 0.9rem; }
 </style>

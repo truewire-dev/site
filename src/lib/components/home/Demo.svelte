@@ -73,10 +73,19 @@ Serving recorded examples; Ctrl-C to stop.`
 </script>
 
 <section id="quickstart" class="demo">
-  <div class="wrap">
-    <h2 class="section-title">From docs URL to verified client</h2>
-    <p class="section-sub">Six commands. One source of truth. Nothing you have to remember to keep in sync.</p>
-    <Terminal label="shell" caption="Terminal session showing the Truewire workflow" html={shell} />
-    <Terminal label="python" caption="Python example using the generated client" html={python} code />
+  <div class="wrap ledger">
+    <div class="margin">
+      <span class="sec-n">02</span>
+      <h2 class="section-title">From docs URL to verified client</h2>
+    </div>
+    <div class="matter">
+      <p class="section-sub">Six commands. One source of truth. Nothing you have to remember to keep in sync.</p>
+      <Terminal label="shell" caption="Terminal session showing the Truewire workflow" html={shell} />
+      <Terminal label="python" caption="Python example using the generated client" html={python} code />
+    </div>
   </div>
 </section>
+
+<style>
+  .demo { padding-bottom: clamp(3rem, 6vw, 5.5rem); }
+</style>

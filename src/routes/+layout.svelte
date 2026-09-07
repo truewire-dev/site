@@ -57,6 +57,7 @@
       <a href="/docs">Docs</a>
       <a href="/roadmap">Roadmap</a>
       <a href="/docs/adr">ADRs</a>
+      <a href="https://github.com/truewire-dev/registry">Registry</a>
       <a href="/contributing">Contributing</a>
       <a href="/legal/terms">Terms</a>
       <a href="/legal/privacy">Privacy</a>

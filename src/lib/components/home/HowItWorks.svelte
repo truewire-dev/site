@@ -4,7 +4,7 @@
     <ol class="steps">
       <li>
         <h3><span class="step-n">1</span> Record.</h3>
-        <p>Point the spec at the API's docs, call each endpoint once, and keep the pair. <code>truewire import openapi</code> seeds the spec if a document exists. An endpoint that can't be called declares why.</p>
+        <p>Point the spec at the API's docs and call each endpoint once: <code>truewire capture</code> makes the call through your own generated client and keeps the pair. <code>truewire import openapi</code> seeds the spec if a document exists. An endpoint that can't be called declares why.</p>
       </li>
       <li>
         <h3><span class="step-n">2</span> Declare.</h3>

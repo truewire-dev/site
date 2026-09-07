@@ -15,7 +15,7 @@
     </details>
     <details>
       <summary>When is TypeScript coming?</summary>
-      <p>It is the next language on the roadmap, after the OpenAPI importer and the MCP server land. The spec format is language-neutral, so a TypeScript client generated from a spec will pass the same mock-backed tests as the Python one. No date yet; the <a href="/roadmap">roadmap</a> says "done when," not "done by."</p>
+      <p>It is the next language on the roadmap; the OpenAPI importer and the MCP server it was queued behind have shipped. The spec format is language-neutral, so a TypeScript client generated from a spec will pass the same mock-backed tests as the Python one. No date yet; the <a href="/roadmap">roadmap</a> says "done when," not "done by."</p>
     </details>
     <details>
       <summary>How is this different from Speakeasy?</summary>
@@ -23,7 +23,7 @@
     </details>
     <details>
       <summary>Who's behind it?</summary>
-      <p>A small team that spent years hand-maintaining clients for 14 exchange and blockchain APIs, then built the tool that made that unnecessary. Truewire was extracted from that system in September 2026. Most of the code is written with Claude and reviewed by humans; every claim in the docs is checked against the code.</p>
+      <p>Truewire is a spinoff of the internal tooling behind <a href="https://github.com/tribulnation">Tribulnation</a>'s typed exchange clients, founded by <a href="https://claramunt.eu">Marcel Claramunt</a> (<a href="https://x.com/marcelclaramunt">@marcelclaramunt</a>), who spent years hand-maintaining clients for 14 exchange and blockchain APIs and is the project's public face. The day-to-day engineering, docs and roadmap are run by an AI operator; Marcel reviews and decides on anything public, financial or legal. Every claim in the docs is checked against the code, and every endpoint against the wire.</p>
     </details>
   </div>
 </section>

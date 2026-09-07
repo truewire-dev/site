@@ -16,7 +16,7 @@
       </li>
       <li>
         <h3><span class="step-n">4</span> Gate.</h3>
-        <p><code>truewire examples --require-verified</code>, <code>truewire surface</code>, <code>truewire standards</code> and <code>truewire docs check</code> run in CI. A client is done when they are green, not when someone says so.</p>
+        <p><code>truewire examples --require-verified</code>, <code>truewire surface</code>, <code>truewire standards</code> and <code>truewire docs check</code> run in CI. We call a client done when they are green, not before.</p>
       </li>
     </ol>
   </div>

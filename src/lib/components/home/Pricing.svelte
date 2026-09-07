@@ -11,7 +11,7 @@
       <article class="plan plan-featured">
         <h3>Spec service.</h3>
         <p class="price">From $2,000 <span>per API</span></p>
-        <p>Send us a docs URL. Get back a verified spec, a mock server, a generated client with tests, and checked docs, delivered as a repository you own. Price depends on surface size and how much of it we can verify against a real account. For teams migrating off a hosted generator, or anyone integrating a WebSocket API they didn't write.</p>
+        <p>Send us a docs URL. Get back a verified spec, a mock server, a generated client with tests, and checked docs, delivered as a repository you own. We price by surface size and by how much of it we can verify against a real account. For teams migrating off a hosted generator, or anyone integrating a WebSocket API they didn't write.</p>
         <a class="btn btn-primary" href="mailto:hello@truewire.dev?subject=Spec%20service%20quote">Request a quote</a>
       </article>
       <article class="plan">

@@ -12,7 +12,7 @@
     { name: 'Mock server from recorded examples', cells: ['Yes, HTTP and WS', 'No', { text: 'HTTP only', unverified: true }, { text: '', unverified: true }, 'No'] },
     { name: 'Verified-coverage gate', cells: ['Yes', 'No', 'No', 'No', 'No'] },
     { name: 'Docs type-checking', cells: ['Yes', 'No', 'No', 'No', 'No'] },
-    { name: 'MCP server', cells: ['Planned', 'No', 'Yes (Gram)', { text: '', unverified: true }, { text: '', unverified: true }] },
+    { name: 'MCP server', cells: ['Yes (truewire mcp)', 'No', 'Yes (Gram)', { text: '', unverified: true }, { text: '', unverified: true }] },
     { name: 'TypeScript', cells: ['Planned', 'Yes', 'Yes', 'Yes', 'Yes'] },
     { name: 'Python', cells: ['Yes', 'Yes', 'Yes', 'Yes', 'Experimental'] }
   ]
@@ -23,7 +23,7 @@
 <section id="compare" class="compare">
   <div class="wrap">
     <h2 class="section-title">How it compares</h2>
-    <p class="section-sub">Where a cell reads <abbr title="Not verified">?</abbr>, we haven't verified the claim and would rather say so than guess. <a href="mailto:hello@truewire.dev?subject=Comparison%20correction">Tell us</a> and we'll fix it.</p>
+    <p class="section-sub">A cell reads <abbr title="Not verified">?</abbr> where we have not verified the claim ourselves. We publish what we checked, not what we guessed. <a href="mailto:hello@truewire.dev?subject=Comparison%20correction">Tell us</a> what we got wrong and we will fix it.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -52,7 +52,7 @@
         </tbody>
       </table>
     </div>
-    <p class="note">Truewire is aimed first at API consumers: people integrating an API they do not control. If you own your API and have a clean OpenAPI document, the tools above are all reasonable choices, and <code>truewire import openapi</code> will read your document too.</p>
+    <p class="note">We build Truewire for API consumers first: people integrating an API they do not control. If you own your API and have a clean OpenAPI document, any tool above will serve you, and <code>truewire import openapi</code> reads your document too.</p>
   </div>
 </section>
 

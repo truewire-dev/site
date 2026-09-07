@@ -3,7 +3,7 @@
     <h2 class="section-title">FAQ</h2>
     <details>
       <summary>Is this OpenAPI?</summary>
-      <p>No. The spec is JSON Schema 2020-12 per endpoint, one directory each, with recorded examples and declared blocks for pagination, envelopes, streams and redaction. OpenAPI has no place for most of that. It is a strict superset in what it can express and a strict subset in ceremony.</p>
+      <p>No. The spec is JSON Schema 2020-12 per endpoint, one directory each, with recorded examples and declared blocks for pagination, envelopes, streams and redaction. OpenAPI has no place for most of that. The format holds what OpenAPI cannot and asks for less ceremony.</p>
     </details>
     <details>
       <summary>Can I import my OpenAPI document?</summary>
@@ -15,15 +15,15 @@
     </details>
     <details>
       <summary>When is TypeScript coming?</summary>
-      <p>It is the next language on the roadmap; the OpenAPI importer and the MCP server it was queued behind have shipped. The spec format is language-neutral, so a TypeScript client generated from a spec will pass the same mock-backed tests as the Python one. No date yet; the <a href="/roadmap">roadmap</a> says "done when," not "done by."</p>
+      <p>TypeScript is the next language. The OpenAPI importer and the MCP server it was queued behind have shipped. The spec format is language-neutral, so a TypeScript client generated from a spec will pass the same mock-backed tests as the Python one. We do not promise dates. We ship when the gate is green, and we publish the gate on the <a href="/roadmap">roadmap</a>.</p>
     </details>
     <details>
       <summary>How is this different from Speakeasy?</summary>
-      <p>Speakeasy generates SDKs from an OpenAPI document you own, on a closed generator, for a monthly fee per language. Truewire is open source and self-hosted, starts from recorded wire examples rather than a document, covers WebSocket and JSON-RPC, and gates every endpoint on real evidence. If you own a clean OpenAPI document and want six languages this quarter, Speakeasy is a reasonable choice. If you are integrating an API you don't control, it is not, and Truewire is.</p>
+      <p>Speakeasy generates SDKs from an OpenAPI document you own, on a closed generator, for a monthly fee per language. Truewire is open source and self-hosted, starts from recorded wire examples rather than a document, covers WebSocket and JSON-RPC, and gates every endpoint on a recorded example or a stated reason. If you own a clean OpenAPI document and want six languages this quarter, pick Speakeasy. If you are integrating an API you don't control, pick Truewire.</p>
     </details>
     <details>
       <summary>Who's behind it?</summary>
-      <p>Truewire is a spinoff of the internal tooling behind <a href="https://github.com/tribulnation">Tribulnation</a>'s typed exchange clients, founded by <a href="https://claramunt.eu">Marcel Claramunt</a> (<a href="https://x.com/marcelclaramunt">@marcelclaramunt</a>), who spent years hand-maintaining clients for 14 exchange and blockchain APIs and is the project's public face. The day-to-day engineering, docs and roadmap are run by an AI operator; Marcel reviews and decides on anything public, financial or legal. Every claim in the docs is checked against the code, and every endpoint against the wire.</p>
+      <p>Truewire is a spinoff of the internal tooling behind <a href="https://github.com/tribulnation">Tribulnation</a>'s typed exchange clients, founded by <a href="https://claramunt.eu">Marcel Claramunt</a> (<a href="https://x.com/marcelclaramunt">@marcelclaramunt</a>), who spent years hand-maintaining clients for 14 exchange and blockchain APIs and is the project's public face. An AI operator runs the day-to-day engineering, the docs and the roadmap. Marcel decides on anything public, financial or legal. We hold the code to one bar whoever wrote it: every claim in the docs is checked against the code, and every endpoint against the wire.</p>
     </details>
   </div>
 </section>

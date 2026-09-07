@@ -4,7 +4,7 @@
   // The transcript is the real CLI output as of 2026-09-07. Regenerate it from the real
   // `truewire` CLI after CLI changes; do not ship invented output.
   const shell = `<b class="cmd">$ pip install truewire</b>
-Successfully installed truewire-0.1.0 truewire-core-0.1.0
+Successfully installed truewire-0.3.0 truewire-core-0.1.1
 
 <b class="cmd">$ truewire init petstore</b>
 Created petstore

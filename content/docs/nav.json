@@ -1,0 +1,30 @@
+[
+  { "title": "Overview", "slug": "index" },
+  { "title": "Concepts", "slug": "concepts" },
+  { "title": "Spec authoring", "slug": "spec/authoring" },
+  { "title": "Production standards", "slug": "standards" },
+  { "title": "truewire.toml", "slug": "truewire-toml" },
+  {
+    "title": "Architecture decisions",
+    "children": [
+      { "title": "Overview", "slug": "adr/index" },
+      { "title": "0001 Endpoint outcomes", "slug": "adr/0001-endpoint-outcome-taxonomy" },
+      { "title": "0002 Declared pagination", "slug": "adr/0002-declared-pagination" },
+      { "title": "0003 Tolerant validation", "slug": "adr/0003-tolerant-validation-wrapper" },
+      { "title": "0004 Envelope extraction", "slug": "adr/0004-declared-envelope-extraction" },
+      { "title": "0005 RPC and stream kinds", "slug": "adr/0005-rpc-stream-kind-and-transports" },
+      { "title": "0006 RPC identifiers", "slug": "adr/0006-rpc-identifier-and-parameter-authoring" },
+      { "title": "0007 Declared redaction", "slug": "adr/0007-declared-redaction" },
+      { "title": "0008 Whole-body dump", "slug": "adr/0008-whole-body-dump" },
+      { "title": "0009 truewire.toml", "slug": "adr/0009-standalone-project-and-truewire-toml" },
+      { "title": "Template", "slug": "adr/0000-template" }
+    ]
+  },
+  {
+    "title": "Project",
+    "children": [
+      { "title": "Roadmap", "slug": "roadmap" },
+      { "title": "Contributing", "slug": "contributing" }
+    ]
+  }
+]

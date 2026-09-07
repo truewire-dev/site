@@ -1,46 +1,95 @@
 # truewire.dev
 
-The landing site for [Truewire](https://github.com/truewire-dev/truewire). Plain static files:
-no build step, no framework, no npm, no external requests (no CDN, no web fonts, no analytics).
+The website for [Truewire](https://github.com/truewire-dev/truewire): landing page, docs,
+roadmap. SvelteKit 2 + Svelte 5, fully prerendered, deployed to Cloudflare Workers.
+
+No framework CSS, no web fonts, no analytics, no requests to third parties. The design is
+the original hand-written stylesheet (`src/lib/styles/global.css`), light and dark by OS
+preference with a persisted switch in the header. The switch is driven by the one inline
+script in `src/app.html`, not by Svelte, so the home page ships no JavaScript at all
+(`csr = false` in `src/routes/+page.ts`); the docs pages hydrate for their copy buttons.
+
+## Layout
 
 ```
-index.html    the page
-style.css     hand-written styles, light and dark via prefers-color-scheme
-favicon.svg   the mark
-robots.txt
-_headers      Cloudflare Pages headers: security headers + cache policy
+content/docs/          committed markdown, synced from the truewire repo (see below)
+content/docs/nav.json  the docs sidebar, in reading order
+scripts/sync-docs.mjs  copies the toolchain's markdown into content/docs/
+scripts/render-docs.mjs renders content/docs/** to src/lib/data/docs/** (gitignored)
+src/routes/            /  /docs/[...path]  /roadmap  /contributing  /legal/*  /sitemap.xml
+src/lib/components/    home sections, docs shell, mode switch
+static/                favicon, robots.txt (plus generated .md and llms.txt, gitignored)
+_headers               security and cache headers for Cloudflare's static assets
+wrangler.jsonc         Worker config: truewire.dev, and a `dev` env on dev.truewire.dev
 ```
 
-## Deploy (Cloudflare Pages)
+## Develop
 
-1. Push this directory to a Git repository (its own repo, or a subdirectory of one).
-2. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-3. Pick the repository and branch.
-4. Build settings:
-   - Framework preset: **None**
-   - Build command: *(leave empty)*
-   - Build output directory: `/` (or the subdirectory holding `index.html`, if the site lives inside a larger repo)
-5. Save and deploy. Every push to the branch redeploys.
-6. **Custom domains** → add `truewire.dev` (and `www.truewire.dev`, redirected to the apex).
-
-`_headers` is picked up automatically by Pages. If you ever add a `_redirects` file, it goes
-in the same directory.
-
-## Editing
-
-- Copy lives in `index.html` directly. The terminal block's output lines are illustrative
-  (see the HTML comment above it); regenerate them from the real CLI before shipping changes
-  to that section.
-- The stylesheet is linked as `style.css?v=1`. Bump the `v` query when you change the CSS so
-  browsers past the 24h cache window pick it up immediately.
-- Keep the page free of scripts and third-party requests; `_headers` ships a CSP that blocks
-  them (`default-src 'none'; style-src 'self'; img-src 'self' data:`). If you need something
-  new, widen the CSP deliberately rather than removing it.
-
-## Checks before publishing
+Node 22 and yarn 1.
 
 ```bash
-python3 -c "import html.parser,sys; p=html.parser.HTMLParser(); p.feed(open('index.html').read()); print('ok')"
-grep -nE 'https?://' index.html style.css | grep -vE 'truewire\.dev|github\.com/truewire-dev|w3\.org/2000/svg|127\.0\.0\.1'   # should print nothing
-du -b index.html style.css favicon.svg
+yarn install
+yarn run dev        # renders the docs first (predev), then vite dev
+yarn run check      # svelte-kit sync + svelte-check
+yarn run build      # renders the docs first (prebuild), then vite build
+yarn run preview    # serves the built site locally
 ```
+
+## Docs
+
+The docs pages are the toolchain repo's own markdown: `README.md` (as `/docs`),
+`docs/concepts.md`, `docs/spec/authoring.md`, `docs/standards.md`, `docs/truewire-toml.md`,
+`docs/adr/*.md`, `ROADMAP.md` (as `/roadmap`) and `CONTRIBUTING.md` (as `/contributing`).
+
+They are copied into `content/docs/` by `scripts/sync-docs.mjs` from a local checkout and
+committed here, so a build never needs the other repo:
+
+```bash
+TRUEWIRE_REPO=../truewire yarn run sync-docs   # default path is ../truewire
+git diff content/docs                          # review, then commit
+```
+
+Never hand-edit `content/docs/*.md`; fix the source in the truewire repo and re-sync.
+`content/docs/nav.json` is hand-written and lists the pages in sidebar order (a page not
+listed is still rendered and routable, just not in the sidebar).
+
+At `predev`/`prebuild`, `scripts/render-docs.mjs` renders every page with marked (GFM
+heading ids) and shiki (python, bash, toml, json, jsonc, yaml), rewrites relative markdown
+links to site routes (or to GitHub for files that are not pages here), and writes:
+
+- `src/lib/data/docs/pages/**.json`: title, description and HTML per page
+- `src/lib/data/docs/_nav.json`: the sidebar, resolved from `nav.json`
+- `src/lib/data/docs/shiki.css`: token colours as classes, so pages ship no inline styles
+- `static/<route>.md`: each page's raw markdown (the "Copy page" button fetches it)
+- `static/llms.txt`, `static/llms-full.txt`
+
+Everything it writes is gitignored. The mapping between repo paths, slugs and routes lives
+in `scripts/docs-map.mjs`.
+
+## Security headers
+
+`_headers` (copied into the build output by adapter-cloudflare) carries the headers that
+must be real HTTP headers: `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`,
+`X-Content-Type-Options`, COOP/CORP, and cache policy. The Content-Security-Policy is
+generated per page by SvelteKit as a hashed `<meta>` tag (`svelte.config.js`), because the
+small hydration script SvelteKit inlines has a hash only the build knows. The one inline
+script of our own, the pre-paint colour-mode resolver in `src/app.html`, is hashed there
+too. The policy allows nothing inline and nothing cross-origin.
+
+## Deploy
+
+`.github/workflows/deploy.yml` runs `yarn run check` and `yarn run build`, then
+`wrangler deploy`, on every push:
+
+- `main` deploys the production Worker (`truewire.dev`)
+- `dev` deploys the `dev` environment (`dev.truewire.dev`)
+
+Repository secrets needed:
+
+- `CLOUDFLARE_API_TOKEN`: an API token with Workers Scripts edit permission (and Zone /
+  DNS edit for the custom domains, the first time)
+- `CLOUDFLARE_ACCOUNT_ID`
+
+The custom domains are declared in `wrangler.jsonc` (`routes` with `custom_domain: true`),
+so the zone for `truewire.dev` has to exist in the same Cloudflare account. Manual deploy:
+`yarn run deploy` (production) or `yarn run build && wrangler deploy --env dev`.

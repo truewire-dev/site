@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0f6e6e" />
+    <script>
+      // Owns the colour scheme, on every page, with no framework involved: resolves
+      // html[data-mode] synchronously before first paint (so a persisted choice never
+      // flashes the other scheme), follows the OS while the choice is "system", and wires
+      // the header's ModeSwitch buttons ([data-mode-choice]) once the DOM is in. Being
+      // plain script, it also works on the home page, which ships no JavaScript at all.
+      // Its hash is added to the page CSP by svelte.config.js, recomputed on every build.
+      (function () {
+        var KEY = 'truewire:mode';
+        var root = document.documentElement;
+        var media = matchMedia('(prefers-color-scheme: dark)');
+        function stored() {
+          try {
+            var s = localStorage.getItem(KEY);
+            return s === 'light' || s === 'dark' ? s : 'system';
+          } catch (e) { return 'system'; }
+        }
+        function apply(mode) {
+          root.setAttribute('data-mode', mode === 'system' ? (media.matches ? 'dark' : 'light') : mode);
+        }
+        apply(stored());
+        media.addEventListener('change', function () { if (stored() === 'system') apply('system'); });
+        document.addEventListener('DOMContentLoaded', function () {
+          var buttons = document.querySelectorAll('[data-mode-choice]');
+          function paint() {
+            var mode = stored();
+            buttons.forEach(function (b) {
+              b.setAttribute('aria-checked', b.getAttribute('data-mode-choice') === mode ? 'true' : 'false');
+            });
+          }
+          buttons.forEach(function (b) {
+            b.addEventListener('click', function () {
+              var mode = b.getAttribute('data-mode-choice');
+              try {
+                if (mode === 'system') localStorage.removeItem(KEY);
+                else localStorage.setItem(KEY, mode);
+              } catch (e) {}
+              apply(mode);
+              paint();
+            });
+          });
+          paint();
+        });
+      })();
+    </script>
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div class="app">%sveltekit.body%</div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+node_modules
+
+# Build output
+/.svelte-kit
+/build
+.wrangler
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Rendered from content/docs/** by scripts/render-docs.mjs (predev/prebuild/predeploy).
+# content/docs/** is the committed source (synced by scripts/sync-docs.mjs); this is
+# just its build output, regenerated on every dev boot and build, never committed.
+src/lib/data/docs/
+static/docs/
+static/llms.txt
+static/llms-full.txt
+static/docs.md
+static/roadmap.md
+static/contributing.md

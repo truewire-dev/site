@@ -13,7 +13,7 @@
     { name: 'Verified-coverage gate', cells: ['Yes', 'No', 'No', 'No', 'No'] },
     { name: 'Docs type-checking', cells: ['Yes', 'No', 'No', 'No', 'No'] },
     { name: 'MCP server', cells: ['Yes (truewire mcp)', 'No', 'Yes (Gram)', { text: '', unverified: true }, { text: '', unverified: true }] },
-    { name: 'TypeScript', cells: ['Planned', 'Yes', 'Yes', 'Yes', 'Yes'] },
+    { name: 'TypeScript', cells: ['Yes (generator in the repo, npm pending)', 'Yes', 'Yes', 'Yes', 'Yes'] },
     { name: 'Python', cells: ['Yes', 'Yes', 'Yes', 'Yes', 'Experimental'] }
   ]
   const text = (cell: Cell) => typeof cell === 'string' ? cell : cell.text

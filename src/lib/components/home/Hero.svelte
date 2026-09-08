@@ -10,7 +10,7 @@
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <div class="hero-mark"><Mark size={64} /></div>
-      <p class="eyebrow">Open source · Python now, TypeScript next</p>
+      <p class="eyebrow">Open source · Python on PyPI, TypeScript in the repo</p>
       <h1>Typed clients, <em class="accent">true to the wire.</em></h1>
       <p class="lede">Truewire turns any API, documented or not, REST or WebSocket, into a typed, validated client you can trust. Record real wire examples. Declare what a schema can't say. Generate the client, the tests, the mock and the docs from the same source.</p>
       <div class="cta">

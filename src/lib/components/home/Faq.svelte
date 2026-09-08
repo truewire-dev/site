@@ -18,8 +18,8 @@
       <p>Yes, and it is the reason the tool exists. Streams (subscribe, push, unsubscribe), request/reply over WS, and JSON-RPC over either transport are first-class in the spec, the generator and the mock server. The mock replays recorded message sequences over a real socket.</p>
     </details>
     <details>
-      <summary>When is TypeScript coming?</summary>
-      <p>TypeScript is the next language. The OpenAPI importer and the MCP server it was queued behind have shipped. The spec format is language-neutral, so a TypeScript client generated from a spec will pass the same mock-backed tests as the Python one. We do not promise dates. We ship when the gate is green, and we publish the gate on the <a href="/roadmap">roadmap</a>.</p>
+      <summary>Is there a TypeScript client?</summary>
+      <p>Yes, in the repository. <code>truewire generate typescript</code> reads the same plan as the Python backend and writes an ESM package typed by the <code>@truewire/core</code> runtime; the GitHub example is generated in TypeScript and replays the same recordings through the mock, in CI. The npm package is pending, and WebSocket streams and composite cores are being finished now. Rust and Go are the candidates after that. We do not promise dates. We ship when the gate is green, and we publish the gate on the <a href="/roadmap">roadmap</a>.</p>
     </details>
     <details>
       <summary>How is this different from Speakeasy?</summary>

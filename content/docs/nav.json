@@ -32,6 +32,14 @@
     "slug": "generated"
   },
   {
+    "title": "Cores",
+    "slug": "cores"
+  },
+  {
+    "title": "For coding agents",
+    "slug": "agents"
+  },
+  {
     "title": "Architecture decisions",
     "children": [
       {

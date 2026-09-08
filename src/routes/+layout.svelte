@@ -14,7 +14,25 @@
   ]
   const isActive = (match?: string) => match !== undefined
     && (page.url.pathname === match || page.url.pathname.startsWith(`${match}/`))
+
+  // The phone menu is a <details>, so it opens and closes without any script (the home page
+  // ships none). On hydrated pages the layout persists across client-side navigation, so
+  // the menu is closed here whenever the URL changes; src/app.html's script adds Escape.
+  let menu: HTMLDetailsElement | undefined = $state()
+  $effect(() => {
+    void page.url.pathname
+    void page.url.hash
+    if (menu) menu.open = false
+  })
 </script>
+
+{#snippet navLinks()}
+  {#each links as link (link.href)}
+    <a href={link.href} aria-current={isActive(link.match) ? 'page' : undefined}>{link.label}</a>
+  {/each}
+  <a href={GITHUB}>GitHub</a>
+  <a class="nav-cta" href="/#quickstart">Get started</a>
+{/snippet}
 
 <svelte:head>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -33,14 +51,22 @@
       <Mark size={26} />
       <span class="brand-name">truewire</span>
     </a>
-    <nav class="nav" aria-label="Primary">
-      {#each links as link (link.href)}
-        <a href={link.href} aria-current={isActive(link.match) ? 'page' : undefined}>{link.label}</a>
-      {/each}
-      <a href={GITHUB}>GitHub</a>
-      <a class="nav-cta" href="/#quickstart">Get started</a>
+    <!-- Wide screens: the links in a row. Phones: the same links behind one disclosure,
+         so the bar stays a single calm row. Only one of the two is displayed at a time. -->
+    <nav class="nav nav-wide" aria-label="Primary">
+      {@render navLinks()}
       <ModeSwitch />
     </nav>
+    <details class="menu" data-menu bind:this={menu}>
+      <summary class="menu-button" aria-controls="site-menu" aria-expanded="false">
+        <span>Menu</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+      </summary>
+      <nav class="nav menu-panel" id="site-menu" aria-label="Primary">
+        {@render navLinks()}
+        <div class="menu-mode"><ModeSwitch /></div>
+      </nav>
+    </details>
   </div>
 </header>
 
@@ -94,6 +120,7 @@
   /* The one call to action in the header: drawn in ink, like .btn-secondary, at nav size. */
   .nav .nav-cta { border: 1px solid var(--line-strong); border-radius: 3px; padding: 0.45rem 0.85rem; font-weight: 600; line-height: 1.2; }
   .nav .nav-cta:hover, .nav .nav-cta:focus-visible { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+  .menu { display: none; }
 
   .site-footer { border-top: 1px solid var(--line-strong); padding: 2.5rem 0 3rem; font-size: 1rem; background: var(--bg-alt); }
   .foot {
@@ -112,11 +139,37 @@
   .foot-links a:hover { color: var(--accent); text-decoration: underline; }
 
   @media (max-width: 48rem) {
-    .bar { height: auto; padding: 0.85rem 0; flex-wrap: wrap; }
-    .nav { gap: 1rem; }
-    /* Below the wrap point the bar is already two rows; the hero repeats this link. */
-    .nav .nav-cta { display: none; }
-    .foot { grid-template-columns: 1fr; }
-    .foot-links { grid-template-columns: repeat(2, auto); }
+    .nav-wide { display: none; }
+    /* One row: brand and a disclosure. The open menu is a ruled column hung from the
+       bar's rule, full width, so nothing can overflow the page sideways. */
+    .site-header { position: relative; }
+    .bar { height: 3.5rem; }
+    .menu { display: block; }
+    .menu-button {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      min-height: 2.75rem; padding: 0 0.25rem 0 0.75rem; margin-right: -0.25rem;
+      font-size: 0.9rem; font-weight: 600; line-height: 1; color: var(--fg);
+      cursor: pointer; list-style: none; user-select: none;
+    }
+    .menu-button::-webkit-details-marker { display: none; }
+    .menu-button svg { width: 1rem; height: 1rem; color: var(--fg-muted); transition: transform 0.15s; }
+    .menu[open] .menu-button { color: var(--accent); }
+    .menu[open] .menu-button svg { transform: rotate(180deg); }
+    .menu-panel {
+      position: absolute; left: 0; right: 0; top: 100%; z-index: 5;
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 0.25rem var(--gutter) 1rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .menu-panel a { display: flex; align-items: center; min-height: 2.75rem; font-size: 1rem; border-bottom: 1px solid var(--line); }
+    .menu-panel a:hover { text-decoration: none; }
+    .menu-panel a[aria-current="page"] { text-decoration: none; }
+    .menu-panel .nav-cta { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 0; font-weight: 400; }
+    .menu-panel .nav-cta:hover, .menu-panel .nav-cta:focus-visible { border-color: var(--line); }
+    .menu-mode { display: flex; justify-content: flex-end; padding-top: 0.75rem; }
+    .foot { grid-template-columns: 1fr; gap: 2rem; }
+    .foot-links { grid-template-columns: 1fr; gap: 1.5rem; }
+    .site-footer { padding: 2rem 0 2.5rem; }
   }
 </style>

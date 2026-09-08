@@ -9,7 +9,7 @@
       // Owns the colour scheme, on every page, with no framework involved: resolves
       // html[data-mode] synchronously before first paint (so a persisted choice never
       // flashes the other scheme), follows the OS while the choice is "system", and wires
-      // the header's ModeSwitch buttons ([data-mode-choice]) once the DOM is in. Being
+      // the header's ModeSwitch buttons ([data-mode-choice]) and phone menu once the DOM is in. Being
       // plain script, it also works on the home page, which ships no JavaScript at all.
       // Its hash is added to the page CSP by svelte.config.js, recomputed on every build.
       (function () {
@@ -47,6 +47,18 @@
             });
           });
           paint();
+          // The header's phone menu ([data-menu], a <details>) opens without script; this
+          // keeps aria-expanded in step and lets Escape close it and return focus.
+          var menu = document.querySelector('details[data-menu]');
+          var summary = menu && menu.querySelector('summary');
+          if (menu && summary) {
+            menu.addEventListener('toggle', function () {
+              summary.setAttribute('aria-expanded', menu.open ? 'true' : 'false');
+            });
+            menu.addEventListener('keydown', function (e) {
+              if (e.key === 'Escape' && menu.open) { menu.open = false; summary.focus(); }
+            });
+          }
         });
       })();
     </script>

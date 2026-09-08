@@ -24,6 +24,10 @@
     "slug": "plan"
   },
   {
+    "title": "TypeScript",
+    "slug": "typescript"
+  },
+  {
     "title": "Architecture decisions",
     "children": [
       {

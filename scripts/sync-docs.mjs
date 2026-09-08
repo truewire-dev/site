@@ -29,6 +29,7 @@ const files = [
   'docs/standards.md',
   'docs/truewire-toml.md',
   'docs/plan.md',
+  'docs/typescript.md',
   ...readdirSync(join(repo, 'docs', 'adr'))
     .filter((name) => name.endsWith('.md'))
     .sort()

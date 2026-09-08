@@ -48,4 +48,8 @@
   .code-pane :global(.str) { color: var(--term-str); }
   .code-pane :global(.num) { color: var(--term-num); }
   .code-pane :global(.cm) { color: var(--term-dim); }
+  @media (max-width: 40rem) {
+    pre { padding: 0.9rem 0.9rem 1rem; font-size: 0.8rem; white-space: pre-wrap; overflow-wrap: normal; }
+    .capped pre { max-height: 24rem; }
+  }
 </style>

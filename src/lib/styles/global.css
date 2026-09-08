@@ -211,6 +211,16 @@ section { padding: 0; }
   .ledger > .margin { position: static; }
   .section-title { font-size: clamp(2.1rem, 8vw, 2.5rem); }
 }
+/* Phones: the ledger keeps its rules and numbers (the number sits above the title) but
+ * gives up most of the air between sections, so the page reads as one column, not a scroll. */
+@media (max-width: 40rem) {
+  .ledger { row-gap: 0.9rem; padding-top: 1rem; }
+  .sec-n { margin-bottom: 0.5rem; }
+  .section-sub { margin: 0.5rem 0 1.25rem; font-size: 1rem; }
+  .note { margin-top: 1.1rem; }
+  .grid-3 { gap: 1.5rem; }
+  .btn { padding: 0.75rem 1.15rem; }
+}
 
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
 @media (max-width: 56rem) { .grid-3 { grid-template-columns: 1fr; } }

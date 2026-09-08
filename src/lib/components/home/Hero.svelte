@@ -111,9 +111,20 @@
     .hero-grid { grid-template-columns: 1fr; row-gap: 3rem; align-items: start; }
     h1 { max-width: 14ch; }
   }
+  /* Phones: the title is set to the width of the screen, the buttons stack full width, and
+     the specimen wraps its long lines instead of hiding them behind a scroll. */
   @media (max-width: 40rem) {
-    .hero-mark :global(.mark) { width: 48px; height: 48px; }
-    .lede { font-size: 1.1rem; }
-    .specimen { font-size: 0.78rem; }
+    .hero { padding-top: 2rem; }
+    .hero-grid { row-gap: 2rem; }
+    .hero-mark { margin-bottom: 1.1rem; }
+    .hero-mark :global(.mark) { width: 40px; height: 40px; }
+    .eyebrow { font-size: 0.72rem; letter-spacing: 0.04em; margin-bottom: 0.9rem; }
+    h1 { font-size: clamp(2.75rem, 14.4vw, 4rem); max-width: none; margin-bottom: 1.1rem; }
+    .lede { font-size: 1.1rem; margin-bottom: 1.5rem; }
+    .cta { flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
+    .cta .btn { width: 100%; text-align: center; padding: 0.85rem 1.15rem; font-size: 1rem; }
+    .specimen { font-size: 0.8rem; }
+    .spec-head { padding: 0.65rem 0.9rem; flex-wrap: wrap; gap: 0.25rem 1rem; }
+    .spec-body { padding: 0.85rem 0.9rem 0.95rem; white-space: pre-wrap; overflow-wrap: normal; }
   }
 </style>

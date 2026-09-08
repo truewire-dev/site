@@ -59,4 +59,12 @@
     .plan { grid-template-columns: 1fr; row-gap: 0.75rem; }
     .plan .btn { justify-self: start; }
   }
+  @media (max-width: 40rem) {
+    .pricing { padding-bottom: 2.5rem; }
+    .margin-cta { margin-top: 0.75rem; }
+    .plan { padding: 1.25rem 0 1.5rem; row-gap: 0.6rem; }
+    .plans .plan:first-child { padding-top: 0.5rem; }
+    .plan .btn { justify-self: stretch; text-align: center; margin-top: 0.35rem; }
+    .price { font-size: 1.7rem; }
+  }
 </style>

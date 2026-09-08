@@ -35,4 +35,10 @@
   @media (max-width: 60rem) {
     .stats-grid { grid-template-columns: 1fr; align-items: start; }
   }
+  @media (max-width: 40rem) {
+    .stats { padding-bottom: 1.75rem; }
+    .stats-grid { padding-top: 1.25rem; row-gap: 1rem; }
+    .figures { gap: 0.9rem 1.5rem; }
+    .stat-n { font-size: 1.6rem; }
+  }
 </style>

@@ -36,8 +36,10 @@
 <style>
   .faq { padding-bottom: clamp(4rem, 8vw, 7rem); }
   .questions { max-width: 46rem; }
-  details { border-bottom: 1px solid var(--line); padding: 1rem 0 1.1rem; }
-  details:first-of-type { padding-top: 0.25rem; }
+  details { border-bottom: 1px solid var(--line); padding: 0.5rem 0 0.6rem; }
+  details:first-of-type { padding-top: 0; }
+  details:first-of-type summary { padding-top: 0.25rem; }
+  /* The summary carries half the row's padding itself, so the tap target is the whole row. */
   summary {
     cursor: pointer;
     font-family: var(--display);
@@ -46,10 +48,15 @@
     line-height: 1.2;
     list-style: none;
     display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    padding: 0.5rem 0;
   }
   summary::-webkit-details-marker { display: none; }
   summary::after { content: "+"; font-family: var(--mono); color: var(--accent); font-weight: 400; font-size: 1.1rem; flex: none; }
   details[open] summary::after { content: "\2212"; }
   summary:hover { color: var(--accent); }
-  details p { color: var(--fg-muted); margin: 0.75rem 0 0; max-width: 42rem; }
+  details p { color: var(--fg-muted); margin: 0.25rem 0 0; max-width: 42rem; }
+  @media (max-width: 40rem) {
+    .faq { padding-bottom: 3rem; }
+    summary { font-size: 1.2rem; min-height: 2.75rem; }
+  }
 </style>

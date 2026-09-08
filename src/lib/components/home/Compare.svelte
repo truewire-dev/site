@@ -84,8 +84,22 @@
   td:nth-child(2) { color: var(--fg); }
   td.yes { color: var(--yes); font-weight: 600; }
   abbr { font-family: var(--mono); text-decoration: none; border-bottom: 1px dotted currentColor; }
+  /* On narrow screens the table scrolls inside its wrap, never the page; a shadow at the
+     right edge, which fades once the reader reaches the last column, says so. */
+  @media (max-width: 56rem) {
+    .table-wrap {
+      scrollbar-width: thin;
+      scrollbar-color: var(--fg-muted) transparent;
+      background:
+        linear-gradient(to left, var(--surface) 40%, transparent) right / 3rem 100% no-repeat local,
+        linear-gradient(to left, color-mix(in srgb, var(--fg) 18%, transparent), transparent) right / 1rem 100% no-repeat scroll;
+    }
+    table { background: transparent; }
+  }
   @media (max-width: 40rem) {
+    .compare { padding-bottom: 2.5rem; }
     table { min-width: 50rem; }
+    th, td { padding: 0.6rem 0.9rem 0.6rem 0; }
     tbody th { min-width: 9rem; max-width: 10rem; padding-right: 1rem; }
   }
 </style>

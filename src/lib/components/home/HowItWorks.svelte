@@ -37,6 +37,9 @@
   .steps p { color: var(--fg-muted); margin: 0; font-size: 1rem; }
   .step-n { font-style: italic; font-weight: 400; color: var(--accent); }
   @media (max-width: 40rem) {
+    .how { padding-bottom: 2.5rem; }
     .steps { grid-template-columns: 1fr; }
+    .steps li { padding: 1rem 0 1.25rem; }
+    .steps h3 { font-size: 1.3rem; }
   }
 </style>

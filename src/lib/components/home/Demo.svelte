@@ -88,4 +88,5 @@ Serving recorded examples; Ctrl-C to stop.`
 
 <style>
   .demo { padding-bottom: clamp(3rem, 6vw, 5.5rem); }
+  @media (max-width: 40rem) { .demo { padding-bottom: 2.5rem; } }
 </style>

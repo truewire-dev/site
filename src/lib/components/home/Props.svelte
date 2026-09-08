@@ -40,4 +40,10 @@
     .prop h2 { max-width: none; }
     .prop-n { padding-top: 0; }
   }
+  @media (max-width: 40rem) {
+    .props { padding-bottom: 2.5rem; }
+    .prop { padding: 1.25rem 0 1.4rem; row-gap: 0.4rem; }
+    .prop h2 { font-size: clamp(1.6rem, 7vw, 1.9rem); }
+    .prop p { font-size: 1rem; }
+  }
 </style>

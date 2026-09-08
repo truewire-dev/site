@@ -28,6 +28,10 @@
     "slug": "typescript"
   },
   {
+    "title": "Generated code",
+    "slug": "generated"
+  },
+  {
     "title": "Architecture decisions",
     "children": [
       {

@@ -28,6 +28,10 @@
     "slug": "typescript"
   },
   {
+    "title": "Rust",
+    "slug": "rust"
+  },
+  {
     "title": "Generated code",
     "slug": "generated"
   },

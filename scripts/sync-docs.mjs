@@ -30,6 +30,7 @@ const files = [
   'docs/truewire-toml.md',
   'docs/plan.md',
   'docs/typescript.md',
+  'docs/rust.md',
   'docs/generated.md',
   'docs/cores.md',
   'docs/agents.md',

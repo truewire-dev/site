@@ -4,7 +4,8 @@
 
 <!-- The hero's visual is a recorded example: the response Truewire keeps beside the endpoint,
      and the types it becomes. The values are the ones the quickstart's Python snippet reads
-     back, so the two sections tell one story. -->
+     back, so the two sections tell one story. The fold sits on a teal-tinted band; the stats
+     strip that follows (Stats.svelte) shares the band, so the two read as one shape. -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
@@ -43,7 +44,7 @@
 </section>
 
 <style>
-  .hero { padding: clamp(2.5rem, 6vw, 5.5rem) 0 clamp(3rem, 6vw, 5.5rem); }
+  .hero { padding: clamp(2.5rem, 6vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4.5rem); background: var(--hero-bg); }
   .hero-grid {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -60,7 +61,7 @@
     margin-bottom: 1.25rem;
   }
   h1 {
-    font-size: clamp(2.9rem, 6.4vw, 5rem);
+    font-size: clamp(3.1rem, 7vw, 5.6rem);
     line-height: 0.98;
     letter-spacing: -0.015em;
     max-width: 12ch;
@@ -69,7 +70,7 @@
   .accent { color: var(--accent); font-style: italic; font-weight: 400; }
   .lede { font-size: 1.2rem; line-height: 1.5; max-width: 34rem; color: var(--fg); margin-bottom: 2rem; }
   .cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-  .fine { color: var(--fg-muted); font-size: 0.9rem; margin: 0; }
+  .fine { color: var(--fg-muted); font-size: 1rem; margin: 0; }
 
   /* The specimen: a dark pane in the terminal's palette, ruled like a record card. */
   .specimen {

@@ -33,7 +33,7 @@
     border-bottom: 1px solid var(--line);
   }
   .prop-n { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--accent); padding-top: 0.5rem; }
-  .prop h2 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); line-height: 1.15; margin: 0; max-width: 16ch; }
+  .prop h2 { font-size: clamp(1.9rem, 3vw, 2.4rem); line-height: 1.1; margin: 0; max-width: 16ch; letter-spacing: -0.01em; }
   .prop p { color: var(--fg-muted); margin: 0.3rem 0 0; }
   @media (max-width: 56rem) {
     .prop { grid-template-columns: 1fr; row-gap: 0.5rem; padding: 1.5rem 0; }

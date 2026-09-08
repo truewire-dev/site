@@ -1,5 +1,6 @@
 <script lang="ts">
   import Hero from '$lib/components/home/Hero.svelte'
+  import Stats from '$lib/components/home/Stats.svelte'
   import Props from '$lib/components/home/Props.svelte'
   import Demo from '$lib/components/home/Demo.svelte'
   import HowItWorks from '$lib/components/home/HowItWorks.svelte'
@@ -23,6 +24,7 @@
 </svelte:head>
 
 <Hero />
+<Stats />
 <Props />
 <Demo />
 <HowItWorks />

@@ -38,6 +38,7 @@
         <a href={link.href} aria-current={isActive(link.match) ? 'page' : undefined}>{link.label}</a>
       {/each}
       <a href={GITHUB}>GitHub</a>
+      <a class="nav-cta" href="/#quickstart">Get started</a>
       <ModeSwitch />
     </nav>
   </div>
@@ -90,8 +91,11 @@
   .nav a { color: var(--fg); text-decoration: none; font-size: 0.9rem; }
   .nav a:hover { color: var(--accent); text-decoration: underline; }
   .nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-underline-offset: 0.35em; }
+  /* The one call to action in the header: drawn in ink, like .btn-secondary, at nav size. */
+  .nav .nav-cta { border: 1px solid var(--line-strong); border-radius: 3px; padding: 0.45rem 0.85rem; font-weight: 600; line-height: 1.2; }
+  .nav .nav-cta:hover, .nav .nav-cta:focus-visible { color: var(--accent); border-color: var(--accent); text-decoration: none; }
 
-  .site-footer { border-top: 1px solid var(--line-strong); padding: 2.5rem 0 3rem; font-size: 0.9rem; }
+  .site-footer { border-top: 1px solid var(--line-strong); padding: 2.5rem 0 3rem; font-size: 1rem; background: var(--bg-alt); }
   .foot {
     display: grid;
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
@@ -110,6 +114,8 @@
   @media (max-width: 48rem) {
     .bar { height: auto; padding: 0.85rem 0; flex-wrap: wrap; }
     .nav { gap: 1rem; }
+    /* Below the wrap point the bar is already two rows; the hero repeats this link. */
+    .nav .nav-cta { display: none; }
     .foot { grid-template-columns: 1fr; }
     .foot-links { grid-template-columns: repeat(2, auto); }
   }

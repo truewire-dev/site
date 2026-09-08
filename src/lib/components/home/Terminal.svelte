@@ -1,13 +1,14 @@
 <script lang="ts">
   // A dark pane, in both colour schemes. `html` is pre-formatted markup (the caller's own
   // transcript, with `.cmd`/`.kw`/`.str`/`.num`/`.cm` spans), rendered verbatim so its
-  // whitespace survives, which a snippet's would not.
-  let { label, caption, html, code = false }: {
-    label: string, caption: string, html: string, code?: boolean
+  // whitespace survives, which a snippet's would not. `capped` limits the pane's height and
+  // scrolls the rest inside it, for a transcript that would otherwise run a screen long.
+  let { label, caption, html, code = false, capped = false }: {
+    label: string, caption: string, html: string, code?: boolean, capped?: boolean
   } = $props()
 </script>
 
-<div class="terminal" class:code-pane={code} role="figure" aria-label={caption}>
+<div class="terminal" class:code-pane={code} class:capped role="figure" aria-label={caption}>
   <div class="terminal-bar"><span>{label}</span></div>
   <pre><code>{@html html}</code></pre>
 </div>
@@ -40,6 +41,7 @@
     color: var(--term-dim);
     tab-size: 2;
   }
+  .capped pre { max-height: 30rem; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--term-dim) var(--term-bg); }
   .terminal :global(.cmd) { color: var(--term-cmd); font-weight: 600; }
   .code-pane pre { color: var(--term-fg); }
   .code-pane :global(.kw) { color: var(--term-kw); }

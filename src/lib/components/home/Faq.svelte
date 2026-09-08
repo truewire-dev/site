@@ -1,4 +1,4 @@
-<section id="faq" class="faq">
+<section id="faq" class="faq band">
   <div class="wrap ledger">
     <div class="margin">
       <span class="sec-n">06</span>

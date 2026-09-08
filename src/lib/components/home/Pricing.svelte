@@ -5,6 +5,7 @@
     <div class="margin">
       <span class="sec-n">05</span>
       <h2 class="section-title">Pricing</h2>
+      <a class="btn btn-secondary margin-cta" href="mailto:hello@truewire.dev?subject=Truewire%3A%20spec%20service">Talk to us</a>
     </div>
     <div class="plans">
       <article class="plan">
@@ -37,6 +38,7 @@
 
 <style>
   .pricing { padding-bottom: clamp(3rem, 6vw, 5.5rem); }
+  .margin-cta { margin-top: 1.25rem; }
   .plans { display: flex; flex-direction: column; }
   .plan {
     display: grid;

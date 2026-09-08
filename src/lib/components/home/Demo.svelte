@@ -72,7 +72,7 @@ Serving recorded examples; Ctrl-C to stop.`
   pet[<span class="str">'created_at'</span>]  <span class="cm"># datetime(2025, 12, 24, 8, 30, tzinfo=UTC), parsed from the wire</span>`
 </script>
 
-<section id="quickstart" class="demo">
+<section id="quickstart" class="demo band">
   <div class="wrap ledger">
     <div class="margin">
       <span class="sec-n">02</span>
@@ -80,7 +80,7 @@ Serving recorded examples; Ctrl-C to stop.`
     </div>
     <div class="matter">
       <p class="section-sub">Six commands. One source of truth. Nothing you have to remember to keep in sync.</p>
-      <Terminal label="shell" caption="Terminal session showing the Truewire workflow" html={shell} />
+      <Terminal label="shell" caption="Terminal session showing the Truewire workflow" html={shell} capped />
       <Terminal label="python" caption="Python example using the generated client" html={python} code />
     </div>
   </div>

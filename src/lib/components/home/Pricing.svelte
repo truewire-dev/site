@@ -27,7 +27,7 @@
       <article class="plan">
         <div class="plan-head">
           <h3>Founding partners.</h3>
-          <p class="price">Six months free <span>then €1,000, locked</span></p>
+          <p class="price">Six months free <span class="then">then €1,000 a month, locked</span></p>
         </div>
         <p class="terms">The first three exchanges. In return: link to the SDKs from your API docs, let us call them official, name one person who receives bug reports, and give us a test account if you have one. The price is stated on day one so the end of the trial is a date, not a surprise.</p>
         <a class="btn btn-secondary" href="mailto:hello@truewire.dev?subject=Founding%20partner">Apply</a>
@@ -52,6 +52,7 @@
   .price { font-family: var(--display); font-size: 1.9rem; line-height: 1.1; margin: 0; letter-spacing: -0.01em; }
   .price span { font-family: var(--font); font-size: 0.9rem; color: var(--fg-muted); margin-left: 0.15rem; }
   .plan-featured .price { color: var(--accent); }
+  .price .then { display: block; margin: 0.35rem 0 0; }
   .terms { color: var(--fg-muted); margin: 0.2rem 0 0; max-width: 40rem; }
   .plan .btn { white-space: nowrap; margin-top: 0.15rem; }
   @media (max-width: 48rem) {

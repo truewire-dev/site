@@ -10,12 +10,12 @@
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <div class="hero-mark"><Mark size={64} /></div>
-      <p class="eyebrow">Open source · Python on PyPI, TypeScript in the repo</p>
+      <p class="eyebrow">Open source · Python, TypeScript and Rust · PyPI, npm, crates.io</p>
       <h1>Typed clients, <em class="accent">true to the wire.</em></h1>
-      <p class="lede">Truewire turns any API, documented or not, REST or WebSocket, into a typed, validated client you can trust. Record real wire examples. Declare what a schema can't say. Generate the client, the tests, the mock and the docs from the same source.</p>
+      <p class="lede">Truewire turns any API, documented or not, REST or WebSocket, into a typed, validated client you can trust. Record real wire examples. Declare what a schema can't say. Generate the client, the tests, the mock and the docs from the same source. If the API is yours, we run the official SDKs for you.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#quickstart">Get started</a>
-        <a class="btn btn-secondary" href="/docs/spec/authoring">Read the spec format</a>
+        <a class="btn btn-secondary" href="#owners">For API owners</a>
       </div>
       <p class="fine"><code>pip install truewire</code> · Apache-2.0 toolchain, MIT runtime. No account.</p>
     </div>

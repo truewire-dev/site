@@ -1,7 +1,7 @@
 <section id="faq" class="faq band">
   <div class="wrap ledger">
     <div class="margin">
-      <span class="sec-n">06</span>
+      <span class="sec-n">07</span>
       <h2 class="section-title">FAQ</h2>
     </div>
     <div class="questions">
@@ -19,11 +19,19 @@
     </details>
     <details>
       <summary>Is there a TypeScript client?</summary>
-      <p>Yes, in the repository. <code>truewire generate typescript</code> reads the same plan as the Python backend and writes an ESM package typed by the <code>@truewire/core</code> runtime; the GitHub example is generated in TypeScript and replays the same recordings through the mock, in CI. The npm package is pending, and WebSocket streams and composite cores are being finished now. Rust and Go are the candidates after that. We do not promise dates. We ship when the gate is green, and we publish the gate on the <a href="/roadmap">roadmap</a>.</p>
+      <p>Yes, and a Rust one. <code>truewire generate typescript</code> and <code>truewire generate rust</code> read the same plan as the Python backend; the runtimes are <code>@truewire/core</code> on npm and <code>truewire-core</code> on crates.io, and the showcase clients for Bluesky and weather.gov are published in all three languages, replaying the same recordings through the mock in CI. Go is next. We do not promise dates. We ship when the gate is green, and we publish the gate on the <a href="/roadmap">roadmap</a>.</p>
+    </details>
+    <details>
+      <summary>I run an API. What exactly do you do for me?</summary>
+      <p>We build and maintain your official SDKs. The spec, the clients, the docs, the mock and the MCP server are free and open, generated from recorded wire examples of your API and published under your namespace or ours. The service is the part nobody can fork: every night we record every method and stream against your live API and diff it against the spec; when it drifts, the clients are re-released and you get a reproducible bug report; and we answer your developers on the SDK repositories. Exchanges first, because streams, signing and pagination are where hand-written SDKs rot fastest. See <a href="#owners">For API owners</a>.</p>
+    </details>
+    <details>
+      <summary>Why pay when the clients are free?</summary>
+      <p>You are not paying for code you could fork. You are paying for tomorrow night's run: the spec kept true when your API changes, the release that follows, the report that arrives before your users notice, and a person answering on the issue tracker. The artefacts are free; the vigilance is the service.</p>
     </details>
     <details>
       <summary>How is this different from Speakeasy?</summary>
-      <p>Speakeasy generates SDKs from an OpenAPI document you own, on a closed generator, for a monthly fee per language. Truewire is open source and self-hosted, starts from recorded wire examples rather than a document, covers WebSocket and JSON-RPC, and gates every endpoint on a recorded example or a stated reason. If you own a clean OpenAPI document and want six languages this quarter, pick Speakeasy. If you are integrating an API you don't control, pick Truewire.</p>
+      <p>Speakeasy generates SDKs from an OpenAPI document you own, on a closed generator, for a monthly fee per language. Truewire is open source and self-hosted, starts from recorded wire examples rather than a document, covers WebSocket and JSON-RPC, and gates every endpoint on a recorded example or a stated reason. If you own a clean OpenAPI document and want six languages this quarter, pick Speakeasy. If you are integrating an API you don't control, pick Truewire. If you own an API with streams, signing and users in four languages, and want it watched every night, talk to us.</p>
     </details>
     <details>
       <summary>Who's behind it?</summary>

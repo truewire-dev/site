@@ -182,6 +182,43 @@ The tests in `packages/truewire/test/test_plan.py` pin the GitHub example's plan
   at the union's own path. An OpenAPI `discriminator` is dropped by `truewire import
   openapi` and has no node here; with one, a backend could render a tagged union and give
   an exact error. Found while writing the Rust runtime.
+- **A project extends its generated client by subclassing, not by a declared base** --
+  settled, not a gap. Python names the base in `truewire.toml` and renders
+  `class Bluesky(ClientBase)`, so the *generated code* imports the project's own package;
+  TypeScript and Rust take their core structurally and import nothing from it, which is
+  what `packages/core-ts/src/contract.ts` and `crates/truewire-core/src/contract.rs` both
+  state as the rule. Adding a `[typescript] base` to render `extends ClientBase` would put
+  that import back and buy nothing a subclass does not already give: a project that wants a
+  factory and a lifecycle on its root writes `class Bluesky extends Generated` in its own
+  `core/`, adds whatever constructor it likes, and points the package's `exports` at it --
+  and a caller sees the same `Bluesky.new()` either way. The declared base is the
+  *narrower* mechanism: it forces a no-argument base constructor, since the generator must
+  not know the base's signature. What is worth doing instead is scaffolding: `truewire init`
+  emitting that subclass so every generated TypeScript project starts with it, which is
+  templates rather than codegen.
+- **The Rust backend renders only a simple root.** A router whose core is composite -- one
+  that hands different children different transports -- has no Rust rendering, and skipping
+  the root takes the whole client with it: pointing the backend at the Bluesky showcase
+  rendered eleven HTTP endpoints and four group routers, then dropped every one of them
+  because nothing reachable declared them, and wrote three files (`lib.rs`, `meta.rs`,
+  `types/mod.rs`). Python and TypeScript both render it (24 and 21 files from the same
+  spec). A composite root is not an exotic shape: it is what any client that speaks both
+  HTTP and WebSocket needs, which is the combination Truewire exists to handle, so this is
+  the gap that decides whether Rust is a supported backend or a demo. The stream endpoint
+  itself is the second half of the same hole. The drop is at least reported now rather than
+  silent. Found by generating the Bluesky showcase in all three languages.
+- **A union cannot be declared open.** An `anyOf` renders as a closed union, so a wire
+  shape the spec does not list fails the *whole* value it arrived in. Bluesky shipped a
+  sixth `app.bsky.embed.*#view` after the showcase's spec was written, and one post
+  carrying it rejected the fifty-post feed it came in. There is no way to say the union is
+  extensible, so the author hand-writes a last member (`{"$type": string}` with
+  `additionalProperties: true`) whose behaviour depends on pydantic preferring a member
+  whose `Literal` matches -- correct today, unstated in the schema, and not portable to a
+  backend with different union semantics. An `"open": true` on an `anyOf` would render the
+  fallback and say so in the generated docs; `truewire check` should also warn on a union
+  of `$type`-tagged members with no fallback, which is the same hazard rule 2 already warns
+  about for a bare string ("a guessed `enum` becomes a `Literal` that rejects values the
+  API later sends"). Found while recording the Bluesky showcase.
 - **Inline literals and unions have no name.** A `literal` or `union` node inside a
   field carries no `id`; TypeScript and Python spell it inline (`'open' | 'closed'`), but
   Rust needs a named `enum` for it, so the Rust backend invents one from the position

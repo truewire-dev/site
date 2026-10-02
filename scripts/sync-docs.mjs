@@ -31,9 +31,17 @@ const files = [
   'docs/plan.md',
   'docs/typescript.md',
   'docs/rust.md',
+  'docs/go.md',
+  'docs/conform.md',
   'docs/generated.md',
   'docs/cores.md',
   'docs/agents.md',
+  'docs/shape/README.md',
+  'docs/shape/workspace.md',
+  'docs/shape/agents.md',
+  'docs/shape/packages.md',
+  'docs/shape/toolchain.md',
+  'docs/shape/score.md',
   ...readdirSync(join(repo, 'docs', 'adr'))
     .filter((name) => name.endsWith('.md'))
     .sort()

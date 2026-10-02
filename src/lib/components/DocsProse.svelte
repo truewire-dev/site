@@ -34,6 +34,8 @@
 </article>
 
 <style>
+  /* Long API identifiers must fit narrow screens; code blocks scroll separately. */
+  :global(.docs-prose) { overflow-wrap: anywhere; }
   :global(.docs-prose h1) { font-size: clamp(1.9rem, 3.5vw, 2.4rem); margin: 0 0 1rem; }
   :global(.docs-prose h2) { font-size: 1.45rem; margin: 2.5rem 0 0.75rem; padding-top: 0.5rem; }
   :global(.docs-prose h3) { font-size: 1.15rem; margin: 1.75rem 0 0.5rem; }
@@ -80,6 +82,7 @@
     border: 1px solid var(--line);
     background: var(--bg-alt);
     overflow-x: auto;
+    overflow-wrap: normal;
     font-family: var(--mono);
     font-size: 0.85rem;
     line-height: 1.6;

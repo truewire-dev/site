@@ -60,6 +60,7 @@
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
+    overflow-wrap: normal;
     border-collapse: collapse;
     font-size: 0.9em;
     margin: 0 0 1.5rem;

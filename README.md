@@ -15,6 +15,7 @@ script in `src/app.html`, not by Svelte, so the home page ships no JavaScript at
 content/docs/          committed markdown, synced from the truewire repo (see below)
 content/docs/nav.json  the docs sidebar, in reading order
 scripts/sync-docs.mjs  copies the toolchain's markdown into content/docs/
+scripts/sync-schemas.mjs copies published JSON Schemas into static/schemas/
 scripts/render-docs.mjs renders content/docs/** to src/lib/data/docs/** (gitignored)
 src/routes/            /  /docs/[...path]  /roadmap  /contributing  /legal/*  /sitemap.xml
 src/lib/components/    home sections, docs shell, mode switch
@@ -30,8 +31,9 @@ Node 22 and yarn 1.
 ```bash
 yarn install
 yarn run dev        # renders the docs first (predev), then vite dev
-yarn run check      # svelte-kit sync + svelte-check
+yarn run check      # schema sync tests + svelte-kit sync + svelte-check
 yarn run build      # renders the docs first (prebuild), then vite build
+yarn run test:schemas-built # checks built assets through Cloudflare's local asset binding
 yarn run preview    # serves the built site locally
 ```
 
@@ -66,6 +68,34 @@ links to site routes (or to GitHub for files that are not pages here), and write
 Everything it writes is gitignored. The mapping between repo paths, slugs and routes lives
 in `scripts/docs-map.mjs`.
 
+## Published schemas
+
+`static/schemas/*.json` is committed and served at `/schemas/`. Sync only from the
+public [truewire repository](https://github.com/truewire-dev/truewire); do not use a
+private development checkout. No schema sources are fetched or generated during builds.
+
+The current files come from Truewire 0.11.0, public commit
+`1a1193f8cc97e9bc517b7185b9f4db8f53133b4a`, directory
+`packages/truewire/src/truewire/schemas/published/`. To reproduce, check out that commit
+in a public truewire clone, then run from this site:
+
+```bash
+TRUEWIRE_REPO=/path/to/public-truewire yarn run sync-schemas --check
+```
+
+To update after a public release, run `sync-schemas` without `--check`, review and commit
+the resulting `static/schemas/` diff, and update the version/commit above. The script
+copies every published JSON file byte-for-byte, requires the two editor schemas, validates
+their JSON and identity before writing, and reports each stale JSON file it removes.
+`--check` fails on missing, changed or stale schemas without changing files.
+
+Run `yarn run check`, `yarn run build`, and `yarn run test:schemas-built` before review.
+The last command checks GET/HEAD status, exact bytes, schema content type, CORS and the
+CORP exception using local Cloudflare assets; it also checks that site pages retain CORP.
+After an approved dev deployment, verify both `docs.yml.json` and `truewire.toml.json`
+at `https://dev.truewire.dev/schemas/`: HTTP 200, `application/schema+json; charset=utf-8`,
+`Access-Control-Allow-Origin: *`, no CORP restriction, and bodies equal to the committed files.
+
 ## Security headers
 
 `_headers` (copied into the build output by adapter-cloudflare) carries the headers that
@@ -74,7 +104,9 @@ must be real HTTP headers: `X-Frame-Options`, `Referrer-Policy`, `Permissions-Po
 generated per page by SvelteKit as a hashed `<meta>` tag (`svelte.config.js`), because the
 small hydration script SvelteKit inlines has a hash only the build knows. The one inline
 script of our own, the pre-paint colour-mode resolver in `src/app.html`, is hashed there
-too. The policy allows nothing inline and nothing cross-origin.
+too. The page policy allows nothing inline and nothing cross-origin. `/schemas/*`
+allows cross-origin reads with CORS and explicitly detaches the global CORP header;
+Cloudflare would combine values if a second CORP value were simply added.
 
 ## Deploy
 

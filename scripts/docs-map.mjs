@@ -12,6 +12,7 @@ export function repoPathForSlug(slug) {
   if (slug === 'roadmap') return 'ROADMAP.md'
   if (slug === 'contributing') return 'CONTRIBUTING.md'
   if (slug === 'adr/index') return 'docs/adr/README.md'
+  if (slug === 'shape/index') return 'docs/shape/README.md'
   return `docs/${slug}.md`
 }
 
@@ -21,6 +22,7 @@ export function slugForRepoPath(path) {
   if (path === 'ROADMAP.md') return 'roadmap'
   if (path === 'CONTRIBUTING.md') return 'contributing'
   if (path === 'docs/adr/README.md') return 'adr/index'
+  if (path === 'docs/shape/README.md') return 'shape/index'
   const match = path.match(/^docs\/(.+)\.md$/)
   return match ? match[1] : null
 }

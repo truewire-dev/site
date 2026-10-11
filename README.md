@@ -37,9 +37,14 @@ yarn run preview    # serves the built site locally
 
 ## Docs
 
-The docs pages are the toolchain repo's own markdown: `README.md` (as `/docs`),
-`docs/concepts.md`, `docs/spec/authoring.md`, `docs/standards.md`, `docs/truewire-toml.md`,
-`docs/adr/*.md`, `ROADMAP.md` (as `/roadmap`) and `CONTRIBUTING.md` (as `/contributing`).
+The docs pages are the public toolchain repo's own markdown: its overview, guides for
+spec authoring and each backend, conformance, architecture decisions, target shape,
+roadmap and contributing guide. `scripts/sync-docs.mjs` lists the files explicitly;
+`content/docs/nav.json` includes every synced page.
+
+The current snapshot comes from public `truewire-dev/truewire` commit
+`1a1193f8cc97e9bc517b7185b9f4db8f53133b4a`, the release fix following 0.11.0
+(release commit `49e9beee`). Sync from that public repository only.
 
 They are copied into `content/docs/` by `scripts/sync-docs.mjs` from a local checkout and
 committed here, so a build never needs the other repo:
@@ -50,8 +55,9 @@ git diff content/docs                          # review, then commit
 ```
 
 Never hand-edit `content/docs/*.md`; fix the source in the truewire repo and re-sync.
-`content/docs/nav.json` is hand-written and lists the pages in sidebar order (a page not
-listed is still rendered and routable, just not in the sidebar).
+`content/docs/nav.json` is hand-written and lists the pages in sidebar order.
+`yarn run test` checks that every synced page appears exactly once and that source paths
+and site routes agree. These tests also run as part of `yarn run check`.
 
 At `predev`/`prebuild`, `scripts/render-docs.mjs` renders every page with marked (GFM
 heading ids) and shiki (python, bash, toml, json, jsonc, yaml), rewrites relative markdown

@@ -31,3 +31,10 @@
 
 /llms-full.txt
   Content-Type: text/plain; charset=utf-8
+
+# Cloudflare combines matching header values; detach the global CORP restriction
+# instead of appending cross-origin to same-origin. Editors may fetch these schemas.
+/schemas/*
+  ! Cross-Origin-Resource-Policy
+  Content-Type: application/schema+json; charset=utf-8
+  Access-Control-Allow-Origin: *

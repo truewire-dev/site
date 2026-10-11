@@ -108,7 +108,7 @@
 
   @media (max-width: 56rem) {
     .docs-shell { padding: 1.25rem 0 3.5rem; }
-    .docs-wrap { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 var(--gutter); }
+    .docs-wrap { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding: 0 var(--gutter); }
     .docs-sidebar { display: none; }
     .docs-menu { display: block; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-alt); }
     .docs-menu-button {

@@ -32,6 +32,14 @@
     "slug": "rust"
   },
   {
+    "title": "Go",
+    "slug": "go"
+  },
+  {
+    "title": "Conformance",
+    "slug": "conform"
+  },
+  {
     "title": "Generated code",
     "slug": "generated"
   },
@@ -95,8 +103,69 @@
         "slug": "adr/0011-declared-core-contract"
       },
       {
+        "title": "0012 Conformance runs",
+        "slug": "adr/0012-conformance-runs"
+      },
+      {
+        "title": "0013 Seek pagination",
+        "slug": "adr/0013-seek-subsumes-window-and-paged-is-paginated-response"
+      },
+      {
+        "title": "0014 Stream reply schema",
+        "slug": "adr/0014-stream-reply-schema"
+      },
+      {
+        "title": "0015 Go backend",
+        "slug": "adr/0015-go-backend"
+      },
+      {
+        "title": "0016 Protobuf WebSocket frames",
+        "slug": "adr/0016-protobuf-websocket-frames"
+      },
+      {
+        "title": "0017 gRPC across backends",
+        "slug": "adr/0017-grpc-endpoints-across-backends"
+      },
+      {
+        "title": "0018 Match ignore paths",
+        "slug": "adr/0018-declared-match-ignore-paths"
+      },
+      {
+        "title": "0019 Query array form",
+        "slug": "adr/0019-declared-query-array-form"
+      },
+      {
         "title": "Template",
         "slug": "adr/0000-template"
+      }
+    ]
+  },
+  {
+    "title": "Target shape",
+    "children": [
+      {
+        "title": "Overview",
+        "slug": "shape/index"
+      },
+      {
+        "title": "Workspace",
+        "slug": "shape/workspace"
+      },
+      {
+        "title": "Agents",
+        "slug": "shape/agents"
+      },
+      {
+        "title": "Packages",
+        "slug": "shape/packages"
+      },
+      {
+        "title": "Toolchain",
+        "slug": "shape/toolchain"
+      },
+      {
+        "title": "Scorecard",
+        "slug": "shape/score"
       }
     ]
   },

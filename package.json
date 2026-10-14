@@ -10,7 +10,7 @@
     "sync-docs": "node scripts/sync-docs.mjs",
     "render-docs": "node scripts/render-docs.mjs",
     "predev": "npm run render-docs",
-    "prebuild": "npm run render-docs",
+    "prebuild": "npm run render-docs && node scripts/changelog.mjs",
     "predeploy": "npm run render-docs",
     "dev": "vite dev",
     "build": "vite build",

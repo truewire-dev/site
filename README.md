@@ -16,9 +16,9 @@ content/docs/          committed markdown, synced from the truewire repo (see be
 content/docs/nav.json  the docs sidebar, in reading order
 scripts/sync-docs.mjs  copies the toolchain's markdown into content/docs/
 scripts/render-docs.mjs renders content/docs/** to src/lib/data/docs/** (gitignored)
-src/routes/            /  /docs/[...path]  /roadmap  /contributing  /legal/*  /sitemap.xml
+src/routes/            /  /docs/[...path]  /roadmap  /changelog  /contributing  /legal/*  /sitemap.xml
 src/lib/components/    home sections, docs shell, mode switch
-static/                favicon, robots.txt (plus generated .md and llms.txt, gitignored)
+static/                favicon, robots.txt, changelog/ (plus generated .md and llms.txt, gitignored)
 _headers               security and cache headers for Cloudflare's static assets
 wrangler.jsonc         Worker config: truewire.dev, and a `dev` env on dev.truewire.dev
 ```
@@ -71,6 +71,28 @@ links to site routes (or to GitHub for files that are not pages here), and write
 
 Everything it writes is gitignored. The mapping between repo paths, slugs and routes lives
 in `scripts/docs-map.mjs`.
+
+## API changelog
+
+`/changelog` lists the API changes Truewire's nightly drift monitor found and a person
+confirmed, and `/changelog/feed.xml` is its RSS feed. Both come from `static/changelog/`:
+
+- `changelog.json`, `changelog.md`, `feed.xml`: the monitor's public export, copied as they
+  are. Never hand-edit them; the monitor's `changelog.py` writes them (typed
+  `monitor/README.md`, Changelog).
+- `apis.json`: the allow-list, `{api: display name}`. An API goes on it only once Truewire
+  publishes its client on PyPI; today `bluesky` and `weather_gov` (the monitor's project
+  names). Adding any other needs Marcel.
+
+`scripts/changelog.mjs` refuses the build (at `prebuild`, and again when `/changelog`
+prerenders) if an entry's `api` is not in `apis.json`, if an entry lacks its confirmation
+date (`confirmed.date`), or if `feed.xml` or `changelog.md` lists other entries than
+`changelog.json`. `yarn run test` covers it.
+
+**Export path.** On the monitor host the nightly run writes
+`~/work/monitor-state/changelog/public/`. To publish, copy its three files over
+`static/changelog/`, run `yarn run build`, and open a PR to `dev`; merged, it deploys
+dev.truewire.dev. The Lead promotes `dev` to `main` (truewire.dev).
 
 ## Security headers
 

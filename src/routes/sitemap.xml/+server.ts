@@ -8,6 +8,7 @@ export function GET() {
     { url: '/', priority: '1.0', freq: 'monthly' },
     { url: '/docs', priority: '0.9', freq: 'weekly' },
     { url: '/roadmap', priority: '0.7', freq: 'weekly' },
+    { url: '/changelog', priority: '0.6', freq: 'daily' },
     { url: '/contributing', priority: '0.5', freq: 'monthly' }
   ]
   const docRoutes = pages

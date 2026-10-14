@@ -91,6 +91,7 @@
         <a href={GITHUB}>GitHub</a>
         <a href="/docs">Docs</a>
         <a href="/roadmap">Roadmap</a>
+        <a href="/changelog">API changelog</a>
         <a href="/docs/adr">ADRs</a>
         <a href="https://github.com/truewire-dev/registry">Registry</a>
         <a href="/contributing">Contributing</a>
